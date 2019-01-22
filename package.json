@@ -1,12 +1,10 @@
 {
-  "name": "graasp-app-starter-react",
-  "version": "0.2.0",
+  "name": "graasp-app-badges",
+  "version": "0.0.0",
   "private": true,
-  "author": "React EPFL",
+  "author": "Pamela Andrade Sevillano",
   "contributors": [
-    "Juan Carlos Farah",
-    "Hassan Abdul Ghaffar",
-    "Mashkour Abdel Aziz"
+    "Juan Carlos Farah"
   ],
   "homepage": ".",
   "license": "MIT",
