@@ -1,26 +1,11 @@
 # Graasp App Badges
 
-[![Codeship](https://app.codeship.com/projects/04f13a10-b05e-0136-09da-7a3da3243947/status?branch=master)](https://app.codeship.com/projects/310436)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2cfb916f3a1d4c0b8fec4634f84f5b93)](https://www.codacy.com/app/react-epfl/graasp-app-starter-react)
-[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/2cfb916f3a1d4c0b8fec4634f84f5b93)](https://www.codacy.com/app/react-epfl/graasp-app-starter-react)
-
 This is an application that allows educators to assign badges to learners
 within the Graasp ecosystem.
 
 ## Getting Started
 
 Fork this repo.
-
-## Request Credentials
-
-Currently, becoming a Graasp Developer and registering Graasp Apps is a manual process. Contact
-juancarlos.farah@epfl.ch or andre.nogueira@epfl.ch to receive a `GRAASP_DEVELOPER_ID`. Every time
-you want to release a new app, you will also have to request a `GRAASP_APP_ID`. This process is
-being automated, but it's currently still in the works.
-
-We will also give you AWS credentials, `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, which you
-will need to deploy your application to the Graasp ecosystem. These keys are private, so you should
-not share them with anyone.
 
 ## Environment Variables
 
