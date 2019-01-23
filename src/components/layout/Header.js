@@ -16,10 +16,12 @@ class Header extends Component {
     t: PropTypes.func.isRequired,
     lang: PropTypes.string.isRequired,
     appInstanceId: PropTypes.string,
+    spaceId: PropTypes.string,
   };
 
   static defaultProps = {
     appInstanceId: null,
+    spaceId: null,
   };
 
   colorStyles = {
@@ -41,9 +43,24 @@ class Header extends Component {
       return (
         <a
           href={`${window.location.search}&appInstanceId=${Math.random().toString(36).substr(2, 5)}`}
-          className="AppInstanceIdLink"
+          className="HeaderLink"
         >
           Use Sample App Instance
+        </a>
+      );
+    }
+    return <div />;
+  };
+
+  renderSpaceLink = () => {
+    const { spaceId } = this.props;
+    if (!spaceId) {
+      return (
+        <a
+          href={`${window.location.search}&spaceId=5b56e70ab253020033364411`}
+          className="HeaderLink"
+        >
+          Use Sample Space
         </a>
       );
     }
@@ -57,6 +74,7 @@ class Header extends Component {
       <header className="App-header">
         <Row>
           <Col>
+            { this.renderSpaceLink() }
             { this.renderAppInstanceLink() }
           </Col>
           <Col>
@@ -83,6 +101,7 @@ class Header extends Component {
 const mapStateToProps = ({ settings }) => ({
   lang: settings.lang,
   appInstanceId: settings.appInstanceId,
+  spaceId: settings.spaceId,
 });
 
 const ConnectedHeader = connect(mapStateToProps)(Header);

@@ -4,42 +4,15 @@ import { Button, ButtonGroup, Table } from 'reactstrap';
 import { deleteAppInstanceResource } from '../../../actions';
 import './AssignedBadges.css';
 
-// todo: make dynamic
-const students = [
-  {
-    _id: '5b56e70ab253020033364416',
-    name: 'juan carlos',
-  },
-  {
-    _id: '5c055c1083d22e0211c24ad8',
-    name: 'pamela',
-  },
-  {
-    _id: '5c055c1083d22e0211c24ad9',
-    name: 'joana',
-  },
-  {
-    _id: '5c055c1083d22e0211c24ad6',
-    name: 'maria',
-  },
-  {
-    _id: '5c055c1083d22e0211c24ad1',
-    name: 'andré',
-  },
-  {
-    _id: '5c055c1083d22e0211c24ad1',
-    name: 'mashkour',
-  },
-];
-
 const renderAppInstanceResources = (props) => {
   const {
+    students,
     appInstanceResources,
     dispatchDeleteAppInstanceResource,
   } = props;
   // if there are no resources, show an empty table
   if (!appInstanceResources.length) {
-    return <tr><td colSpan={5}>No App Instance Resources</td></tr>;
+    return <tr><td colSpan={5}>No Badges Assigned</td></tr>;
   }
   // map each app instance resource to a row in the table
   return appInstanceResources.map(({ _id, data }) => {
@@ -47,7 +20,7 @@ const renderAppInstanceResources = (props) => {
       studentId,
       badge,
     } = data;
-    const studentObject = students.find(student => student._id === studentId);
+    const studentObject = students.find(student => student._id === studentId) || {};
     const { name } = studentObject;
     return (
       <tr key={_id}>
@@ -95,6 +68,7 @@ const AssignedBadges = props => (
 
 const mapStateToProps = state => ({
   appInstanceResources: state.appInstanceResources.content,
+  students: state.users.content,
 });
 
 const mapDispatchToProps = {
