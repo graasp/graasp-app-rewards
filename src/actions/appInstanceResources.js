@@ -76,7 +76,7 @@ const getAppInstanceResources = async ({
 
 const postAppInstanceResource = async ({
   data,
-  userId,
+  user,
 } = {}) => async (dispatch, getState) => {
   dispatch(flagPostingAppInstanceResource(true));
   try {
@@ -99,7 +99,12 @@ const postAppInstanceResource = async ({
       appInstance: appInstanceId,
       // here you can specify who the resource will belong to
       // but applies if the user making the request is an admin
-      user: userId,
+      user,
+      // todo: fix when issue below is fixed
+      // https://github.com/typicode/json-server/issues/612
+      // appInstanceId and userId is only needed to work with the local database
+      appInstanceId,
+      userId: user,
     };
 
     const response = await fetch(
