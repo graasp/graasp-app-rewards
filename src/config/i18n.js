@@ -2,6 +2,7 @@ import i18n from 'i18next';
 import { reactI18nextModule } from 'react-i18next';
 import en from '../langs/en';
 import fr from '../langs/fr';
+import es from '../langs/es';
 
 i18n
   .use(reactI18nextModule)
@@ -9,6 +10,7 @@ i18n
     resources: {
       en,
       fr,
+      es,
     },
     fallbackLng: 'en',
     debug: true,

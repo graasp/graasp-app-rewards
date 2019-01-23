@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import PropTypes from 'prop-types';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faMedal } from '@fortawesome/free-solid-svg-icons';
 import TeacherView from './modes/teacher/TeacherView';
 import StudentView from './modes/student/StudentView';
 import './App.css';
@@ -9,8 +11,12 @@ import {
   getApiEndpoint,
   getAppInstanceResources,
   getSettings,
+  getUsers,
 } from '../actions';
 import { DEFAULT_LANG, DEFAULT_MODE } from '../config/settings';
+
+// set up icons
+library.add(faMedal);
 
 export class App extends Component {
   static propTypes = {
@@ -19,8 +25,6 @@ export class App extends Component {
     }).isRequired,
     dispatchGetApiEndpoint: PropTypes.func.isRequired,
     dispatchGetSettings: PropTypes.func.isRequired,
-    dispatchGetAppInstanceResources: PropTypes.func.isRequired,
-    appInstanceId: PropTypes.string,
     lang: PropTypes.string,
     mode: PropTypes.string,
   };
@@ -28,7 +32,6 @@ export class App extends Component {
   static defaultProps = {
     lang: DEFAULT_LANG,
     mode: DEFAULT_MODE,
-    appInstanceId: null,
   };
 
   constructor(props) {
@@ -42,30 +45,20 @@ export class App extends Component {
   async componentDidMount() {
     const {
       lang,
-      appInstanceId,
-      dispatchGetAppInstanceResources,
     } = this.props;
     // set the language on first load
     this.handleChangeLang(lang);
-    // only fetch app instance resources if app instance id is available
-    if (appInstanceId) {
-      await dispatchGetAppInstanceResources(appInstanceId);
-    }
   }
 
-  async componentDidUpdate({ lang: prevLang, appInstanceId: prevAppInstanceId }) {
+  async componentDidUpdate({
+    lang: prevLang,
+  }) {
     const {
       lang,
-      appInstanceId,
-      dispatchGetAppInstanceResources,
     } = this.props;
     // handle a change of language
     if (lang !== prevLang) {
       this.handleChangeLang(lang);
-    }
-    // handle receiving the app instance id
-    if (appInstanceId !== prevAppInstanceId) {
-      await dispatchGetAppInstanceResources();
     }
   }
 
@@ -98,14 +91,16 @@ const mapStateToProps = ({ settings }) => ({
   lang: settings.lang,
   mode: settings.mode,
   appInstanceId: settings.appInstanceId,
+  spaceId: settings.spaceId,
 });
 
 const mapDispatchToProps = {
   dispatchGetApiEndpoint: getApiEndpoint,
   dispatchGetSettings: getSettings,
   dispatchGetAppInstanceResources: getAppInstanceResources,
+  dispatchGetUsers: getUsers,
 };
 
 const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
 
-export default withNamespaces('translations')(ConnectedApp);
+export default withNamespaces()(ConnectedApp);

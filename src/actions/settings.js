@@ -61,6 +61,8 @@ const getSettings = () => (dispatch) => {
       mode = 'default',
       lang = 'en',
       appInstanceId = null,
+      spaceId = null,
+      subSpaceId = null,
       userId = null,
       sessionId = null,
     } = Qs.parse(window.location.search, { ignoreQueryPrefix: true });
@@ -70,6 +72,8 @@ const getSettings = () => (dispatch) => {
       appInstanceId,
       userId,
       sessionId,
+      spaceId,
+      subSpaceId,
     };
     dispatch({
       type: GET_SETTINGS_SUCCEEDED,
