@@ -9,6 +9,7 @@ import {
   getApiEndpoint,
   getAppInstanceResources,
   getSettings,
+  getUsers,
 } from '../actions';
 import { DEFAULT_LANG, DEFAULT_MODE } from '../config/settings';
 
@@ -19,16 +20,19 @@ export class App extends Component {
     }).isRequired,
     dispatchGetApiEndpoint: PropTypes.func.isRequired,
     dispatchGetSettings: PropTypes.func.isRequired,
+    dispatchGetUsers: PropTypes.func.isRequired,
     dispatchGetAppInstanceResources: PropTypes.func.isRequired,
     appInstanceId: PropTypes.string,
     lang: PropTypes.string,
     mode: PropTypes.string,
+    spaceId: PropTypes.string,
   };
 
   static defaultProps = {
     lang: DEFAULT_LANG,
     mode: DEFAULT_MODE,
     appInstanceId: null,
+    spaceId: null,
   };
 
   constructor(props) {
@@ -43,21 +47,33 @@ export class App extends Component {
     const {
       lang,
       appInstanceId,
+      spaceId,
       dispatchGetAppInstanceResources,
+      dispatchGetUsers,
     } = this.props;
     // set the language on first load
     this.handleChangeLang(lang);
     // only fetch app instance resources if app instance id is available
     if (appInstanceId) {
-      await dispatchGetAppInstanceResources(appInstanceId);
+      await dispatchGetAppInstanceResources();
+    }
+    // only fetch users if app is running inside a space
+    if (spaceId) {
+      await dispatchGetUsers();
     }
   }
 
-  async componentDidUpdate({ lang: prevLang, appInstanceId: prevAppInstanceId }) {
+  async componentDidUpdate({
+    lang: prevLang,
+    appInstanceId: prevAppInstanceId,
+    spaceId: prevSpaceId,
+  }) {
     const {
       lang,
       appInstanceId,
+      spaceId,
       dispatchGetAppInstanceResources,
+      dispatchGetUsers,
     } = this.props;
     // handle a change of language
     if (lang !== prevLang) {
@@ -66,6 +82,10 @@ export class App extends Component {
     // handle receiving the app instance id
     if (appInstanceId !== prevAppInstanceId) {
       await dispatchGetAppInstanceResources();
+    }
+    // only fetch users if app is running inside a space
+    if (spaceId !== prevSpaceId) {
+      await dispatchGetUsers();
     }
   }
 
@@ -98,12 +118,14 @@ const mapStateToProps = ({ settings }) => ({
   lang: settings.lang,
   mode: settings.mode,
   appInstanceId: settings.appInstanceId,
+  spaceId: settings.spaceId,
 });
 
 const mapDispatchToProps = {
   dispatchGetApiEndpoint: getApiEndpoint,
   dispatchGetSettings: getSettings,
   dispatchGetAppInstanceResources: getAppInstanceResources,
+  dispatchGetUsers: getUsers,
 };
 
 const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);

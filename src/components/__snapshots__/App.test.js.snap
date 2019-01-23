@@ -51,6 +51,7 @@ ShallowWrapper {
     }
     lang="en"
     mode="student"
+    spaceId={null}
     t={[MockFunction]}
   />,
   Symbol(enzyme.__renderer__): Object {

@@ -6,46 +6,21 @@ import Select from 'react-select';
 import _ from 'lodash';
 import { postAppInstanceResource } from '../../../actions';
 
-// todo: make dynamic
-const students = [
-  {
-    _id: '5b56e70ab253020033364416',
-    name: 'juan carlos',
-  },
-  {
-    _id: '5c055c1083d22e0211c24ad8',
-    name: 'pamela',
-  },
-  {
-    _id: '5c055c1083d22e0211c24ad9',
-    name: 'joana',
-  },
-  {
-    _id: '5c055c1083d22e0211c24ad6',
-    name: 'maria',
-  },
-  {
-    _id: '5c055c1083d22e0211c24ad1',
-    name: 'andré',
-  },
-  {
-    _id: '5c055c1083d22e0211c24ad1',
-    name: 'mashkour',
-  },
-];
-
 const badges = [
   'gold',
   'silver',
   'bronze',
 ];
 
-const studentOptions = students.map(({ _id, name }) => ({ value: _id, label: name }));
 const badgeOptions = badges.map(badge => ({ value: badge, label: _.capitalize(badge) }));
 
 class AssignBadgeForm extends Component {
   static propTypes = {
     dispatchPostAppInstanceResource: PropTypes.func.isRequired,
+    studentOptions: PropTypes.arrayOf(PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.string,
+    })).isRequired,
   };
 
   state = {
@@ -87,6 +62,9 @@ class AssignBadgeForm extends Component {
       selectedStudent,
       selectedBadge,
     } = this.state;
+    const {
+      studentOptions,
+    } = this.props;
     return (
       <Fragment>
         <Select
@@ -112,8 +90,12 @@ class AssignBadgeForm extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  studentOptions: state.users.content.map(({ _id, name }) => ({ value: _id, label: name })),
+});
+
 const mapDispatchToProps = {
   dispatchPostAppInstanceResource: postAppInstanceResource,
 };
 
-export default connect(null, mapDispatchToProps)(AssignBadgeForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AssignBadgeForm);
