@@ -46,8 +46,8 @@ class AssignBadgeForm extends Component {
       return alert('you must select a student and a badge');
     }
     return dispatchPostAppInstanceResource({
+      user: selectedStudent.value,
       data: {
-        studentId: selectedStudent.value,
         badgeId: selectedBadge.value,
       },
     });

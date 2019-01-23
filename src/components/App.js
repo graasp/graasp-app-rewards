@@ -25,19 +25,13 @@ export class App extends Component {
     }).isRequired,
     dispatchGetApiEndpoint: PropTypes.func.isRequired,
     dispatchGetSettings: PropTypes.func.isRequired,
-    dispatchGetUsers: PropTypes.func.isRequired,
-    dispatchGetAppInstanceResources: PropTypes.func.isRequired,
-    appInstanceId: PropTypes.string,
     lang: PropTypes.string,
     mode: PropTypes.string,
-    spaceId: PropTypes.string,
   };
 
   static defaultProps = {
     lang: DEFAULT_LANG,
     mode: DEFAULT_MODE,
-    appInstanceId: null,
-    spaceId: null,
   };
 
   constructor(props) {
@@ -51,46 +45,20 @@ export class App extends Component {
   async componentDidMount() {
     const {
       lang,
-      appInstanceId,
-      spaceId,
-      dispatchGetAppInstanceResources,
-      dispatchGetUsers,
     } = this.props;
     // set the language on first load
     this.handleChangeLang(lang);
-    // only fetch app instance resources if app instance id is available
-    if (appInstanceId) {
-      await dispatchGetAppInstanceResources();
-    }
-    // only fetch users if app is running inside a space
-    if (spaceId) {
-      await dispatchGetUsers();
-    }
   }
 
   async componentDidUpdate({
     lang: prevLang,
-    appInstanceId: prevAppInstanceId,
-    spaceId: prevSpaceId,
   }) {
     const {
       lang,
-      appInstanceId,
-      spaceId,
-      dispatchGetAppInstanceResources,
-      dispatchGetUsers,
     } = this.props;
     // handle a change of language
     if (lang !== prevLang) {
       this.handleChangeLang(lang);
-    }
-    // handle receiving the app instance id
-    if (appInstanceId !== prevAppInstanceId) {
-      await dispatchGetAppInstanceResources();
-    }
-    // only fetch users if app is running inside a space
-    if (spaceId !== prevSpaceId) {
-      await dispatchGetUsers();
     }
   }
 

@@ -17,13 +17,12 @@ const renderAppInstanceResources = (props) => {
     return <tr><td colSpan={5}>No Badges Assigned</td></tr>;
   }
   // map each app instance resource to a row in the table
-  return appInstanceResources.map(({ _id, data }) => {
+  return appInstanceResources.map(({ _id, user, data }) => {
     const {
-      studentId,
       badgeId,
     } = data;
     // find corresponding student and badge objects from state
-    const studentObject = students.find(student => student._id === studentId) || {};
+    const studentObject = students.find(student => student._id === user) || {};
     const badgeObject = badges.find(badge => badge._id === badgeId) || {};
 
     // extract necessary properties
@@ -34,7 +33,7 @@ const renderAppInstanceResources = (props) => {
     return (
       <tr key={_id}>
         <th scope="row">{ _id }</th>
-        <td>{ studentId }</td>
+        <td>{ user }</td>
         <td>{ name }</td>
         <td>
           <FontAwesomeIcon color={color} icon="medal" />
