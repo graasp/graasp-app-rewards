@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, ButtonGroup, Table } from 'reactstrap';
 import { deleteAppInstanceResource } from '../../../actions';
 import './AssignedBadges.css';
 
 const renderAppInstanceResources = (props) => {
   const {
+    badges,
     students,
     appInstanceResources,
     dispatchDeleteAppInstanceResource,
@@ -18,16 +20,25 @@ const renderAppInstanceResources = (props) => {
   return appInstanceResources.map(({ _id, data }) => {
     const {
       studentId,
-      badge,
+      badgeId,
     } = data;
+    // find corresponding student and badge objects from state
     const studentObject = students.find(student => student._id === studentId) || {};
+    const badgeObject = badges.find(badge => badge._id === badgeId) || {};
+
+    // extract necessary properties
     const { name } = studentObject;
+    const { color } = badgeObject;
+
+    // return a row for this entry
     return (
       <tr key={_id}>
         <th scope="row">{ _id }</th>
         <td>{ studentId }</td>
         <td>{ name }</td>
-        <td>{ badge }</td>
+        <td>
+          <FontAwesomeIcon color={color} icon="medal" />
+        </td>
         <td>
           <ButtonGroup>
             <Button
@@ -69,6 +80,7 @@ const AssignedBadges = props => (
 const mapStateToProps = state => ({
   appInstanceResources: state.appInstanceResources.content,
   students: state.users.content,
+  badges: state.badges.content,
 });
 
 const mapDispatchToProps = {
