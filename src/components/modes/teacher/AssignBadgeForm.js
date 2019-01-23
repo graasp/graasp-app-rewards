@@ -3,21 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
 import Select from 'react-select';
-import _ from 'lodash';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { postAppInstanceResource } from '../../../actions';
-
-const badges = [
-  'gold',
-  'silver',
-  'bronze',
-];
-
-const badgeOptions = badges.map(badge => ({ value: badge, label: _.capitalize(badge) }));
 
 class AssignBadgeForm extends Component {
   static propTypes = {
     dispatchPostAppInstanceResource: PropTypes.func.isRequired,
     studentOptions: PropTypes.arrayOf(PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.string,
+    })).isRequired,
+    badgeOptions: PropTypes.arrayOf(PropTypes.shape({
       label: PropTypes.string,
       value: PropTypes.string,
     })).isRequired,
@@ -52,7 +48,7 @@ class AssignBadgeForm extends Component {
     return dispatchPostAppInstanceResource({
       data: {
         studentId: selectedStudent.value,
-        badge: selectedBadge.value,
+        badgeId: selectedBadge.value,
       },
     });
   };
@@ -64,6 +60,7 @@ class AssignBadgeForm extends Component {
     } = this.state;
     const {
       studentOptions,
+      badgeOptions,
     } = this.props;
     return (
       <Fragment>
@@ -92,6 +89,15 @@ class AssignBadgeForm extends Component {
 
 const mapStateToProps = state => ({
   studentOptions: state.users.content.map(({ _id, name }) => ({ value: _id, label: name })),
+  badgeOptions: state.badges.content.map(({ _id, label, color }) => ({
+    value: _id,
+    label: (
+      <div>
+        { `${label} ` }
+        <FontAwesomeIcon color={color} icon="medal" />
+      </div>
+    ),
+  })),
 });
 
 const mapDispatchToProps = {
