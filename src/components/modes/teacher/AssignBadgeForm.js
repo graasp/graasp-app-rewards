@@ -4,17 +4,19 @@ import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
 import Select from 'react-select';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { withNamespaces } from 'react-i18next';
 import { postAppInstanceResource } from '../../../actions';
 
 class AssignBadgeForm extends Component {
   static propTypes = {
+    t: PropTypes.func.isRequired,
     dispatchPostAppInstanceResource: PropTypes.func.isRequired,
     studentOptions: PropTypes.arrayOf(PropTypes.shape({
       label: PropTypes.string,
       value: PropTypes.string,
     })).isRequired,
     badgeOptions: PropTypes.arrayOf(PropTypes.shape({
-      label: PropTypes.string,
+      label: PropTypes.element,
       value: PropTypes.string,
     })).isRequired,
   };
@@ -59,6 +61,7 @@ class AssignBadgeForm extends Component {
       selectedBadge,
     } = this.state;
     const {
+      t,
       studentOptions,
       badgeOptions,
     } = this.props;
@@ -80,28 +83,33 @@ class AssignBadgeForm extends Component {
           color="primary"
           onClick={this.assignBadge}
         >
-          Assign Badge
+          { t('Assign Badge') }
         </Button>
       </Fragment>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  studentOptions: state.users.content.map(({ _id, name }) => ({ value: _id, label: name })),
-  badgeOptions: state.badges.content.map(({ _id, label, color }) => ({
-    value: _id,
-    label: (
-      <div>
-        { `${label} ` }
-        <FontAwesomeIcon color={color} icon="medal" />
-      </div>
-    ),
-  })),
-});
+const mapStateToProps = (state, ownProps) => {
+  const { t } = ownProps;
+  return {
+    studentOptions: state.users.content.map(({ _id, name }) => ({ value: _id, label: name })),
+    badgeOptions: state.badges.content.map(({ _id, label, color }) => ({
+      value: _id,
+      label: (
+        <div>
+          { `${t(label)} ` }
+          <FontAwesomeIcon color={color} icon="medal" />
+        </div>
+      ),
+    })),
+  };
+};
 
 const mapDispatchToProps = {
   dispatchPostAppInstanceResource: postAppInstanceResource,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AssignBadgeForm);
+const ConnectedComponent = connect(mapStateToProps, mapDispatchToProps)(AssignBadgeForm);
+
+export default withNamespaces()(ConnectedComponent);

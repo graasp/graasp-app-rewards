@@ -103,4 +103,4 @@ const mapDispatchToProps = {
 
 const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
 
-export default withNamespaces('translations')(ConnectedApp);
+export default withNamespaces()(ConnectedApp);

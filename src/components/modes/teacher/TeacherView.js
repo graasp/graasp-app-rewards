@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  Alert,
   Container,
 } from 'reactstrap';
 import { withNamespaces } from 'react-i18next';
@@ -75,14 +74,7 @@ class TeacherView extends Component {
 
     return (
       <Container fluid className="App App-body TeacherView">
-        <Alert color="primary">
-          {
-            t('This is the teacher view. Switch to the student view by clicking on the URL below.')
-          }
-          <a href="?mode=student">
-            <pre>{`${window.location.host}/?mode=student`}</pre>
-          </a>
-        </Alert>
+        <h3>{ t('Teacher View') }</h3>
         <AssignBadgeForm />
         <AssignedBadges />
       </Container>
@@ -106,4 +98,4 @@ const mapDispatchToProps = {
 
 const ConnectedComponent = connect(mapStateToProps, mapDispatchToProps)(TeacherView);
 
-export default withNamespaces('translations')(ConnectedComponent);
+export default withNamespaces()(ConnectedComponent);

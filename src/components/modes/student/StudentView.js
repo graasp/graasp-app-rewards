@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
-import { Alert, Container } from 'reactstrap';
+import { Container } from 'reactstrap';
 import MyBadges from './MyBadges';
 import { getAppInstanceResources } from '../../../actions';
 
@@ -52,12 +52,7 @@ class StudentView extends Component {
     const { t } = this.props;
     return (
       <Container className="App App-body StudentView">
-        <Alert color="info">
-          {t('This is the student view. Switch to the teacher view by clicking on the URL below.')}
-          <a href="?mode=teacher">
-            <pre>{`${window.location.host}/?mode=teacher`}</pre>
-          </a>
-        </Alert>
+        <h3>{ t('Student View') }</h3>
         <MyBadges />
       </Container>
     );
@@ -75,4 +70,4 @@ const mapDispatchToProps = {
 
 const ConnectedComponent = connect(mapStateToProps, mapDispatchToProps)(StudentView);
 
-export default withNamespaces('translations')(ConnectedComponent);
+export default withNamespaces()(ConnectedComponent);

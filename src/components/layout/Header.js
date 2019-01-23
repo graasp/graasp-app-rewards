@@ -5,7 +5,6 @@ import { Row, Col } from 'reactstrap';
 import { withNamespaces } from 'react-i18next';
 import Select from 'react-select';
 import { options as langOptions } from '../../constants/langs';
-import { ReactComponent as Logo } from '../../resources/logo.svg';
 import './Header.css';
 
 class Header extends Component {
@@ -14,7 +13,6 @@ class Header extends Component {
       defaultNS: PropTypes.string,
     }).isRequired,
     t: PropTypes.func.isRequired,
-    lang: PropTypes.string.isRequired,
     appInstanceId: PropTypes.string,
     spaceId: PropTypes.string,
   };
@@ -68,11 +66,17 @@ class Header extends Component {
   };
 
   render() {
-    const { t, lang } = this.props;
-    const selectedLanguage = langOptions.find(langOption => langOption.value === lang);
+    const { t, i18n } = this.props;
+    const { language } = i18n;
+    const selectedLanguage = langOptions.find(langOption => langOption.value === language);
     return (
       <header className="App-header">
         <Row>
+          <Col>
+            <h3>
+              { t('Badges') }
+            </h3>
+          </Col>
           <Col>
             { this.renderSpaceLink() }
             { this.renderAppInstanceLink() }
@@ -89,10 +93,6 @@ class Header extends Component {
             />
           </Col>
         </Row>
-        <Logo className="App-logo" />
-        <h1 className="App-title">
-          {t('Welcome to the Graasp App Starter Kit')}
-        </h1>
       </header>
     );
   }
@@ -106,4 +106,4 @@ const mapStateToProps = ({ settings }) => ({
 
 const ConnectedHeader = connect(mapStateToProps)(Header);
 
-export default withNamespaces('translations')(ConnectedHeader);
+export default withNamespaces()(ConnectedHeader);
