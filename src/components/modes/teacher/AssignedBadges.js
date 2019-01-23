@@ -1,12 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, ButtonGroup, Table } from 'reactstrap';
+import { withNamespaces } from 'react-i18next';
 import { deleteAppInstanceResource } from '../../../actions';
 import './AssignedBadges.css';
 
 const renderAppInstanceResources = (props) => {
   const {
+    t,
     badges,
     students,
     appInstanceResources,
@@ -45,7 +48,7 @@ const renderAppInstanceResources = (props) => {
               color="danger"
               onClick={() => dispatchDeleteAppInstanceResource(_id)}
             >
-              Delete
+              { t('Delete') }
             </Button>
           </ButtonGroup>
         </td>
@@ -54,27 +57,44 @@ const renderAppInstanceResources = (props) => {
   });
 };
 
-const AssignedBadges = props => (
-  <div className="AssignedBadges">
-    <h5>
-        Assigned Badges
-    </h5>
-    <Table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Student ID</th>
-          <th>Name</th>
-          <th>Badge</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        { renderAppInstanceResources(props) }
-      </tbody>
-    </Table>
-  </div>
-);
+const AssignedBadges = (props) => {
+  const { t } = props;
+  return (
+    <div className="AssignedBadges">
+      <h5>
+        { t('Assigned Badges') }
+      </h5>
+      <Table>
+        <thead>
+          <tr>
+            <th>
+              { t('ID') }
+            </th>
+            <th>
+              { t('Student ID') }
+            </th>
+            <th>
+              { t('Name') }
+            </th>
+            <th>
+              { t('Badge') }
+            </th>
+            <th>
+              { t('Actions') }
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          { renderAppInstanceResources(props) }
+        </tbody>
+      </Table>
+    </div>
+  );
+};
+
+AssignedBadges.propTypes = {
+  t: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = state => ({
   appInstanceResources: state.appInstanceResources.content,
@@ -89,4 +109,4 @@ const mapDispatchToProps = {
 
 const ConnectedComponent = connect(mapStateToProps, mapDispatchToProps)(AssignedBadges);
 
-export default ConnectedComponent;
+export default withNamespaces()(ConnectedComponent);
