@@ -4,7 +4,21 @@ exports[`<App /> renders correctly 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <App
+    appInstanceId="student"
     dispatchGetApiEndpoint={
+      [MockFunction] {
+        "calls": Array [
+          Array [],
+        ],
+        "results": Array [
+          Object {
+            "isThrow": false,
+            "value": undefined,
+          },
+        ],
+      }
+    }
+    dispatchGetAppInstance={
       [MockFunction] {
         "calls": Array [
           Array [],

@@ -1,11 +1,14 @@
 import Qs from 'qs';
 import {
+  CLOSE_SETTINGS,
   FLAG_GETTING_API_ENDPOINT,
   FLAG_GETTING_SETTINGS,
   GET_API_ENDPOINT_FAILED,
   GET_API_ENDPOINT_SUCCEEDED,
   GET_SETTINGS_FAILED,
   GET_SETTINGS_SUCCEEDED,
+  OPEN_SETTINGS,
+  SET_HEADER_VISIBILITY,
 } from '../types';
 import {
   BASE_API_URL,
@@ -89,7 +92,23 @@ const getSettings = () => (dispatch) => {
   }
 };
 
+const openSettings = () => dispatch => dispatch({
+  type: OPEN_SETTINGS,
+});
+
+const closeSettings = () => dispatch => dispatch({
+  type: CLOSE_SETTINGS,
+});
+
+const setHeaderVisibility = visible => dispatch => dispatch({
+  type: SET_HEADER_VISIBILITY,
+  payload: visible,
+});
+
 export {
   getApiEndpoint,
   getSettings,
+  openSettings,
+  closeSettings,
+  setHeaderVisibility,
 };

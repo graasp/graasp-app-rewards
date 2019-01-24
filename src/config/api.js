@@ -6,6 +6,7 @@ export const LOCAL_API = 'http://localhost:3636';
 
 // endpoints
 export const HOSTNAME_ENDPOINT = '/hostname';
+export const APP_INSTANCES_ENDPOINT = '/app-instances';
 export const APP_INSTANCE_RESOURCES_ENDPOINT = '/app-instance-resources';
 export const SPACES_ENDPOINT = '/spaces';
 // users endpoint is currently used in conjunction with spaces endpoint

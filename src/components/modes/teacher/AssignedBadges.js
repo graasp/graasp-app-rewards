@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,6 +6,7 @@ import { Button, ButtonGroup, Table } from 'reactstrap';
 import { withNamespaces } from 'react-i18next';
 import { deleteAppInstanceResource } from '../../../actions';
 import './AssignedBadges.css';
+import { BADGE } from '../../../config/appInstanceResourceTypes';
 
 const renderAppInstanceResources = (props) => {
   const {
@@ -20,7 +21,15 @@ const renderAppInstanceResources = (props) => {
     return <tr><td colSpan={5}>No Badges Assigned</td></tr>;
   }
   // map each app instance resource to a row in the table
-  return appInstanceResources.map(({ _id, user, data }) => {
+  return appInstanceResources.map(({
+    _id,
+    user,
+    data,
+    type,
+  }) => {
+    if (type !== BADGE) {
+      return <Fragment key={_id} />;
+    }
     const {
       badgeId,
     } = data;
