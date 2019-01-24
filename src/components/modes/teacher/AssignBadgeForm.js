@@ -6,6 +6,7 @@ import Select from 'react-select';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { withNamespaces } from 'react-i18next';
 import { postAppInstanceResource } from '../../../actions';
+import { BADGE } from '../../../config/appInstanceResourceTypes';
 
 class AssignBadgeForm extends Component {
   static propTypes = {
@@ -49,6 +50,7 @@ class AssignBadgeForm extends Component {
     }
     return dispatchPostAppInstanceResource({
       user: selectedStudent.value,
+      type: BADGE,
       data: {
         badgeId: selectedBadge.value,
       },

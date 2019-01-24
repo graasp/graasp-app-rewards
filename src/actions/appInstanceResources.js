@@ -30,6 +30,7 @@ const flagDeletingAppInstanceResource = flag(FLAG_DELETING_APP_INSTANCE_RESOURCE
 const getAppInstanceResources = async ({
   userId,
   sessionId,
+  type,
 } = {}) => async (dispatch, getState) => {
   dispatch(flagGettingAppInstanceResources(true));
   try {
@@ -54,12 +55,19 @@ const getAppInstanceResources = async ({
       url += `&sessionId=${sessionId}`;
     }
 
+    // add type if present
+    if (type) {
+      url += `&type=${type}`;
+    }
+
     const response = await fetch(url, DEFAULT_GET_REQUEST);
 
     // throws if it is an error
     await isErrorResponse(response);
 
-    const appInstanceResources = response.json();
+    const appInstanceResources = await response.json();
+
+    // send the app instance resources to the reducer
     return dispatch({
       type: GET_APP_INSTANCE_RESOURCES_SUCCEEDED,
       payload: appInstanceResources,
@@ -77,6 +85,7 @@ const getAppInstanceResources = async ({
 const postAppInstanceResource = async ({
   data,
   user,
+  type,
 } = {}) => async (dispatch, getState) => {
   dispatch(flagPostingAppInstanceResource(true));
   try {
@@ -96,6 +105,7 @@ const postAppInstanceResource = async ({
 
     const body = {
       data,
+      type,
       appInstance: appInstanceId,
       // here you can specify who the resource will belong to
       // but applies if the user making the request is an admin
@@ -118,7 +128,7 @@ const postAppInstanceResource = async ({
     // throws if it is an error
     await isErrorResponse(response);
 
-    const appInstanceResource = response.json();
+    const appInstanceResource = await response.json();
 
     return dispatch({
       type: POST_APP_INSTANCE_RESOURCE_SUCCEEDED,
@@ -168,7 +178,7 @@ const patchAppInstanceResource = async ({
     // throws if it is an error
     await isErrorResponse(response);
 
-    const appInstanceResource = response.json();
+    const appInstanceResource = await response.json();
 
     return dispatch({
       type: PATCH_APP_INSTANCE_RESOURCE_SUCCEEDED,

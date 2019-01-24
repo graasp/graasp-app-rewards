@@ -9,11 +9,10 @@ import StudentView from './modes/student/StudentView';
 import './App.css';
 import {
   getApiEndpoint,
-  getAppInstanceResources,
   getSettings,
-  getUsers,
 } from '../actions';
 import { DEFAULT_LANG, DEFAULT_MODE } from '../config/settings';
+import { getAppInstance } from '../actions/appInstance';
 
 // set up icons
 library.add(faMedal);
@@ -25,13 +24,16 @@ export class App extends Component {
     }).isRequired,
     dispatchGetApiEndpoint: PropTypes.func.isRequired,
     dispatchGetSettings: PropTypes.func.isRequired,
+    dispatchGetAppInstance: PropTypes.func.isRequired,
     lang: PropTypes.string,
     mode: PropTypes.string,
+    appInstanceId: PropTypes.string,
   };
 
   static defaultProps = {
     lang: DEFAULT_LANG,
     mode: DEFAULT_MODE,
+    appInstanceId: DEFAULT_MODE,
   };
 
   constructor(props) {
@@ -45,20 +47,33 @@ export class App extends Component {
   async componentDidMount() {
     const {
       lang,
+      appInstanceId,
+      dispatchGetAppInstance,
     } = this.props;
     // set the language on first load
     this.handleChangeLang(lang);
+    // only fetch app instance resources if app instance id is available
+    if (appInstanceId) {
+      await dispatchGetAppInstance();
+    }
   }
 
   async componentDidUpdate({
     lang: prevLang,
+    appInstanceId: prevAppInstanceId,
   }) {
     const {
       lang,
+      appInstanceId,
+      dispatchGetAppInstance,
     } = this.props;
     // handle a change of language
     if (lang !== prevLang) {
       this.handleChangeLang(lang);
+    }
+    // handle receiving the app instance id
+    if (appInstanceId !== prevAppInstanceId) {
+      await dispatchGetAppInstance();
     }
   }
 
@@ -97,8 +112,7 @@ const mapStateToProps = ({ settings }) => ({
 const mapDispatchToProps = {
   dispatchGetApiEndpoint: getApiEndpoint,
   dispatchGetSettings: getSettings,
-  dispatchGetAppInstanceResources: getAppInstanceResources,
-  dispatchGetUsers: getUsers,
+  dispatchGetAppInstance: getAppInstance,
 };
 
 const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);

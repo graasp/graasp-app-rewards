@@ -1,6 +1,9 @@
 import {
   GET_API_ENDPOINT_SUCCEEDED,
   GET_SETTINGS_SUCCEEDED,
+  OPEN_SETTINGS,
+  CLOSE_SETTINGS,
+  SET_HEADER_VISIBILITY,
 } from '../types';
 
 const INITIAL_STATE = {
@@ -10,6 +13,8 @@ const INITIAL_STATE = {
   appInstanceId: null,
   spaceId: null,
   subSpaceId: null,
+  open: false,
+  headerVisible: true,
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
@@ -23,6 +28,21 @@ export default (state = INITIAL_STATE, { type, payload }) => {
       return {
         ...state,
         ...payload,
+      };
+    case OPEN_SETTINGS:
+      return {
+        ...state,
+        open: true,
+      };
+    case CLOSE_SETTINGS:
+      return {
+        ...state,
+        open: false,
+      };
+    case SET_HEADER_VISIBILITY:
+      return {
+        ...state,
+        headerVisible: payload,
       };
     default:
       return state;

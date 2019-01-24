@@ -1,5 +1,14 @@
 {
   "appInstanceResources": [],
+  "appInstance": [
+    {
+      "_id": "6156e70ab253020033364411",
+      "settings": {},
+      "item": "2356e70ab253020033364411",
+      "createdAt" : "2018-12-06T10:00:00.000Z",
+      "updatedAt" : "2018-12-06T10:00:00.000Z"
+    }
+  ],
   "spaces": [
     {
       "_id": "5b56e70ab253020033364411"
