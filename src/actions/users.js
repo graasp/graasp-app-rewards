@@ -28,7 +28,7 @@ const getUsers = async () => async (dispatch, getState) => {
       return alert('no space id specified');
     }
 
-    const url = `${endpoint + SPACES_ENDPOINT}/${spaceId}/${USERS_ENDPOINT}`;
+    const url = `//${endpoint + SPACES_ENDPOINT}/${spaceId}/${USERS_ENDPOINT}`;
 
     const response = await fetch(url, DEFAULT_GET_REQUEST);
 

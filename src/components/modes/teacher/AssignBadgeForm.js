@@ -95,7 +95,7 @@ class AssignBadgeForm extends Component {
 const mapStateToProps = (state, ownProps) => {
   const { t } = ownProps;
   return {
-    studentOptions: state.users.content.map(({ _id, name }) => ({ value: _id, label: name })),
+    studentOptions: state.users.content.map(({ id, name }) => ({ value: id, label: name })),
     badgeOptions: state.badges.content.map(({ _id, label, color }) => ({
       value: _id,
       label: (

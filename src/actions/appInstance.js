@@ -32,7 +32,7 @@ const getAppInstance = async () => async (dispatch, getState) => {
       return alert('no app instance id specified');
     }
 
-    const url = `${endpoint + APP_INSTANCES_ENDPOINT}/${appInstanceId}`;
+    const url = `//${endpoint + APP_INSTANCES_ENDPOINT}/${appInstanceId}`;
 
     const response = await fetch(url, DEFAULT_GET_REQUEST);
 
@@ -77,7 +77,7 @@ const patchAppInstance = async ({ data } = {}) => async (dispatch, getState) => 
       return alert('no app instance id specified');
     }
 
-    const url = `${endpoint + APP_INSTANCES_ENDPOINT}/${appInstanceId}`;
+    const url = `//${endpoint + APP_INSTANCES_ENDPOINT}/${appInstanceId}`;
     const body = {
       settings: data,
     };

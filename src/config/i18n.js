@@ -13,7 +13,8 @@ i18n
       es,
     },
     fallbackLng: 'en',
-    debug: true,
+    // debug only when not in production
+    debug: process.env.NODE_ENV !== 'production',
     ns: ['translations'],
     defaultNS: 'translations',
     keySeparator: false,

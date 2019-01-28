@@ -16,7 +16,7 @@ import {
   HOSTNAME_ENDPOINT,
   LOCAL_API,
 } from '../config/api';
-import { flag } from './common';
+import { flag, isErrorResponse } from './common';
 
 // flags
 const flagGettingApiEndpoint = flag(FLAG_GETTING_API_ENDPOINT);
@@ -38,7 +38,12 @@ const getApiEndpoint = async () => async (dispatch) => {
     }
 
     const url = `${BASE_API_URL + HOSTNAME_ENDPOINT}?parentLocationHostname=${parentLocationHostname}`;
-    const endpoint = await fetch(url, DEFAULT_GET_REQUEST);
+    const response = await fetch(url, DEFAULT_GET_REQUEST);
+
+    // throws if it is an error
+    await isErrorResponse(response);
+
+    const endpoint = await response.json();
     return dispatch({
       type: GET_API_ENDPOINT_SUCCEEDED,
       payload: endpoint,

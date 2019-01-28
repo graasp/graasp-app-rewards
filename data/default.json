@@ -1,6 +1,6 @@
 {
   "appInstanceResources": [],
-  "appInstance": [
+  "appInstances": [
     {
       "_id": "6156e70ab253020033364411",
       "settings": {},
@@ -16,32 +16,32 @@
   ],
   "lightUsers": [
     {
-      "_id": "5b56e70ab253020033364416",
+      "id": "5b56e70ab253020033364416",
       "name": "juan carlos",
       "spaceId": "5b56e70ab253020033364411"
     },
     {
-      "_id": "5c055c1083d22e0211c24ad8",
+      "id": "5c055c1083d22e0211c24ad8",
       "name": "pamela",
       "spaceId": "5b56e70ab253020033364411"
     },
     {
-      "_id": "5c055c1083d22e0211c24ad9",
+      "id": "5c055c1083d22e0211c24ad9",
       "name": "joana",
       "spaceId": "5b56e70ab253020033364411"
     },
     {
-      "_id": "5c055c1083d22e0211c24ad6",
+      "id": "5c055c1083d22e0211c24ad6",
       "name": "maria",
       "spaceId": "5b56e70ab253020033364411"
     },
     {
-      "_id": "5c055c1083d22e0211c24ad1",
+      "id": "5c055c1083d22e0211c24ad1",
       "name": "andré",
       "spaceId": "5b56e70ab253020033364411"
     },
     {
-      "_id": "5c055c1083d22e0211c24ad1",
+      "id": "5c055c1083d22e0211c24ad1",
       "name": "mashkour",
       "spaceId": "5b56e70ab253020033364411"
     }

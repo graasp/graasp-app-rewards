@@ -32,16 +32,16 @@ const renderBadges = (props) => {
 
     // extract necessary properties
     const { color } = badgeObject;
-    const appName = 'My App';
-    const resourceName = 'My Resource';
 
     // return a row for this entry
     return (
       <tr key={_id}>
-        <td>{ appName }</td>
-        <td>{ resourceName }</td>
         <td>
-          <FontAwesomeIcon color={color} icon="medal" />
+          <FontAwesomeIcon
+            color={color}
+            icon="medal"
+            size="10x"
+          />
         </td>
       </tr>
     );
@@ -58,12 +58,6 @@ const MyBadges = (props) => {
       <Table>
         <thead>
           <tr>
-            <th>
-              { t('App') }
-            </th>
-            <th>
-              { t('Resource') }
-            </th>
             <th>
               { t('Badge') }
             </th>

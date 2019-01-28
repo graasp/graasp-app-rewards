@@ -34,7 +34,7 @@ const renderAppInstanceResources = (props) => {
       badgeId,
     } = data;
     // find corresponding student and badge objects from state
-    const studentObject = students.find(student => student._id === user) || {};
+    const studentObject = students.find(student => student.id === user) || {};
     const badgeObject = badges.find(badge => badge._id === badgeId) || {};
 
     // extract necessary properties
@@ -44,8 +44,6 @@ const renderAppInstanceResources = (props) => {
     // return a row for this entry
     return (
       <tr key={_id}>
-        <th scope="row">{ _id }</th>
-        <td>{ user }</td>
         <td>{ name }</td>
         <td>
           <FontAwesomeIcon color={color} icon="medal" />
@@ -76,12 +74,6 @@ const AssignedBadges = (props) => {
       <Table>
         <thead>
           <tr>
-            <th>
-              { t('ID') }
-            </th>
-            <th>
-              { t('Student ID') }
-            </th>
             <th>
               { t('Name') }
             </th>

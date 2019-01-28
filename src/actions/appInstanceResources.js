@@ -46,7 +46,7 @@ const getAppInstanceResources = async ({
       return alert('no app instance id specified');
     }
 
-    let url = `${endpoint + APP_INSTANCE_RESOURCES_ENDPOINT}?appInstanceId=${appInstanceId}`;
+    let url = `//${endpoint + APP_INSTANCE_RESOURCES_ENDPOINT}?appInstanceId=${appInstanceId}`;
 
     // only add userId or sessionId, not both
     if (userId) {
@@ -101,7 +101,7 @@ const postAppInstanceResource = async ({
       return alert('no app instance id specified');
     }
 
-    const url = endpoint + APP_INSTANCE_RESOURCES_ENDPOINT;
+    const url = `//${endpoint + APP_INSTANCE_RESOURCES_ENDPOINT}`;
 
     const body = {
       data,
@@ -161,7 +161,7 @@ const patchAppInstanceResource = async ({
       return alert('no app instance resource id specified');
     }
 
-    const url = `${endpoint + APP_INSTANCE_RESOURCES_ENDPOINT}/${id}`;
+    const url = `//${endpoint + APP_INSTANCE_RESOURCES_ENDPOINT}/${id}`;
 
     const body = {
       data,
@@ -208,7 +208,7 @@ const deleteAppInstanceResource = async id => async (dispatch, getState) => {
       return alert('no app instance resource id specified');
     }
 
-    const url = `${endpoint + APP_INSTANCE_RESOURCES_ENDPOINT}/${id}`;
+    const url = `//${endpoint + APP_INSTANCE_RESOURCES_ENDPOINT}/${id}`;
 
     const response = await fetch(url, DEFAULT_DELETE_REQUEST);
 
