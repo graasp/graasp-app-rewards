@@ -52,7 +52,7 @@ class StudentView extends Component {
     const { t } = this.props;
     return (
       <Container className="App App-body StudentView">
-        <h3>{ t('Student View') }</h3>
+        { t(' ') }
         <MyBadges />
       </Container>
     );

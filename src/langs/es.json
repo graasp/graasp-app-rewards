@@ -1,12 +1,15 @@
 {
   "translations" : {
+    "You must select a student and a badge": "Debe seleccionar un estudiante y una medalla",
     "My Badges": "Mis Medallas",
-    "No Badges Assigned": "Ninguna medalla ha sido asignada.",
+    "No badges have been assigned to you yet": "Ninguna medalla se te ha sido asignada aun",
     "App": "Aplicación",
     "Badge": "Medalla",
     "Badges": "Medallas",
     "Resource": "Recurso",
-    "Teacher View": "Panel de Control",
+    "Teacher Dashboard": "Panel de Control",
+    "Settings": "Ajustes",
+    "Header visible": "Mostrar encabezado",
     "Assign Badge": "Asignar Medalla",
     "Gold": "Oro",
     "Silver": "Plata",
@@ -14,9 +17,11 @@
     "Actions": "Acciones",
     "Student ID": "Identificador del Estudiante",
     "ID": "ID",
-    "Assigned Badges": "Medalles Asignadas",
+    "List of Assigned Badges": "Lista de Medallas Asignadas",
     "Name": "Nombre",
     "Delete": "Borrar",
-    "Student View": "Panel Personal"
+    "Student View": "Panel Personal",
+    "Your badges": "Tus medallas",
+    "Trophy Room": "Tus insignias"
   }
 }
