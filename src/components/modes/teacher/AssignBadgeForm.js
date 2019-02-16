@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { withNamespaces } from 'react-i18next';
 import { postAppInstanceResource } from '../../../actions';
 import { BADGE } from '../../../config/appInstanceResourceTypes';
-import './AssignedBadges.css';
+import './AssignBadgeForm.css';
 
 class AssignBadgeForm extends Component {
   static propTypes = {
@@ -83,7 +83,7 @@ class AssignBadgeForm extends Component {
           options={badgeOptions}
         />
         <Button
-          className="AssignMedal"
+          className="AssignBadge"
           color="primary"
           onClick={this.assignBadge}
         >

@@ -8,7 +8,7 @@ import { getAppInstanceResources } from '../../../actions';
 
 class StudentView extends Component {
   static propTypes = {
-    t: PropTypes.func.isRequired,
+    // t: PropTypes.func.isRequired,
     dispatchGetAppInstanceResources: PropTypes.func.isRequired,
     appInstanceId: PropTypes.string,
     userId: PropTypes.string,
@@ -49,10 +49,8 @@ class StudentView extends Component {
   }
 
   render() {
-    const { t } = this.props;
     return (
       <Container className="App App-body StudentView">
-        { t(' ') }
         <MyBadges />
       </Container>
     );
