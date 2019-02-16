@@ -17,7 +17,7 @@ const renderBadges = (props) => {
     return (
       <tr>
         <td colSpan={5}>
-          { t('No Badges Assigned') }
+          { t('No badges have been assigned to you yet') }
         </td>
       </tr>
     );
@@ -52,14 +52,12 @@ const MyBadges = (props) => {
   const { t } = props;
   return (
     <div className="AssignedBadges">
-      <h5>
-        { t('My Badges') }
-      </h5>
+
       <Table>
         <thead>
           <tr>
             <th>
-              { t('Badge') }
+              { t('Trophy Room') }
             </th>
           </tr>
         </thead>

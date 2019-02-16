@@ -111,12 +111,13 @@ class Settings extends Component {
             <FormControlLabel
               control={(
                 <Switch
+                  color="primary"
                   checked={headerVisible}
                   onChange={this.handleChangeHeaderVisibility}
                   value="headerVisibility"
                 />
               )}
-              label={t('Header Visible')}
+              label={t('Header visible')}
             />
             <Select
               // default selected value is the first language option

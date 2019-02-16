@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { withNamespaces } from 'react-i18next';
 import { postAppInstanceResource } from '../../../actions';
 import { BADGE } from '../../../config/appInstanceResourceTypes';
+import './AssignBadgeForm.css';
 
 class AssignBadgeForm extends Component {
   static propTypes = {
@@ -46,7 +47,7 @@ class AssignBadgeForm extends Component {
       selectedBadge,
     } = this.state;
     if (!selectedStudent || !selectedBadge) {
-      return alert('you must select a student and a badge');
+      return alert('You must select a student and a badge');
     }
     return dispatchPostAppInstanceResource({
       user: selectedStudent.value,
@@ -82,6 +83,7 @@ class AssignBadgeForm extends Component {
           options={badgeOptions}
         />
         <Button
+          className="AssignBadge"
           color="primary"
           onClick={this.assignBadge}
         >

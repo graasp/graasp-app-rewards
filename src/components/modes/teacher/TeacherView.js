@@ -92,13 +92,13 @@ class TeacherView extends Component {
 
     return (
       <Container fluid className="App App-body TeacherView">
-        <h3>{ t('Teacher View') }</h3>
+        <h3>{ t('Teacher Dashboard') }</h3>
         <AssignBadgeForm />
         <AssignedBadges />
         <Settings />
         <Fab
           color="primary"
-          aria-label="Settings"
+          aria-label={t('Settings')}
           className={classes.fab}
           onClick={dispatchOpenSettings}
         >

@@ -8,6 +8,7 @@ import { deleteAppInstanceResource } from '../../../actions';
 import './AssignedBadges.css';
 import { BADGE } from '../../../config/appInstanceResourceTypes';
 
+
 const renderAppInstanceResources = (props) => {
   const {
     t,
@@ -69,7 +70,7 @@ const AssignedBadges = (props) => {
   return (
     <div className="AssignedBadges">
       <h5>
-        { t('Assigned Badges') }
+        { t('List of Assigned Badges') }
       </h5>
       <Table>
         <thead>
