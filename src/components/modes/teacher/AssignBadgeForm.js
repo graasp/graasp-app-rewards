@@ -108,7 +108,7 @@ const mapStateToProps = (state, ownProps) => {
   const { t } = ownProps;
   return {
     studentOptions: state.users.content.map(({ id, name }) => ({ value: id, label: name })),
-    badgeOptions: state.badges.groups[state.settings.badgegroup].badges.map(({
+    badgeOptions: state.badges.groups[state.settings.badgeGroup].badges.map(({
       _id, label, color, icon,
     }) => ({
       value: _id,

@@ -16,7 +16,7 @@ const INITIAL_STATE = {
   subSpaceId: null,
   open: false,
   headerVisible: true,
-  badgegroup: 0,
+  badgeGroup: 0,
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
@@ -49,7 +49,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
     case SET_BADGE_GROUP:
       return {
         ...state,
-        badgegroup: payload,
+        badgeGroup: payload,
       };
     default:
       return state;

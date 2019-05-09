@@ -85,7 +85,7 @@ class Settings extends Component {
   handleChangeGroup = (selectedGroup) => {
     const { value } = selectedGroup;
     const settingsToChange = {
-      badgegroup: value,
+      badgeGroup: value,
     };
     this.saveSettings(settingsToChange);
   };
@@ -102,12 +102,12 @@ class Settings extends Component {
 
     const {
       headerVisible,
-      badgegroup,
+      badgeGroup,
     } = settings;
 
     const { language } = i18n;
     const selectedLanguage = langOptions.find(langOption => langOption.value === language);
-    const selectedGroup = badgeOptions.find(badgeOption => badgeOption.value === badgegroup);
+    const selectedGroup = badgeOptions.find(badgeOption => badgeOption.value === badgeGroup);
 
     return (
       <div>
@@ -170,7 +170,7 @@ Settings.propTypes = {
   settings: PropTypes.shape({
     headerVisible: PropTypes.bool.isRequired,
     lang: PropTypes.string.isRequired,
-    badgegroup: PropTypes.number.isRequired,
+    badgeGroup: PropTypes.number.isRequired,
   }).isRequired,
   t: PropTypes.func.isRequired,
   dispatchCloseSettings: PropTypes.func.isRequired,
@@ -197,7 +197,7 @@ const mapStateToProps = ({ settings, badges }, ownProps) => {
     settings: {
       lang: settings.lang,
       headerVisible: settings.headerVisible,
-      badgegroup: settings.badgegroup,
+      badgeGroup: settings.badgegroup,
     },
   };
 };
