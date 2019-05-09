@@ -1,6 +1,11 @@
 {
   "translations" : {
     "My Badges": "My Badges",
-    "Badges": "Badges"
+    "Badges": "Rewards",
+    "Assign Badge": "Assign Reward",
+    "List of Assigned Badges": "List of Assigned Rewards",
+    "Badge": "Reward",
+    "You must select a student and a badge": "You must select a student and a prize",
+    "No badges have been assigned to you yet": "No prizes have been awarded to you yet"
   }
 }

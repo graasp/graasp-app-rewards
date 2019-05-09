@@ -68,6 +68,14 @@ class AssignBadgeForm extends Component {
       studentOptions,
       badgeOptions,
     } = this.props;
+    const shownBadge = badgeOptions.find(
+      badge => (selectedBadge ? badge.value === selectedBadge.value : null),
+    ) || null;
+    if (shownBadge !== selectedBadge) {
+      this.setState({
+        selectedBadge: shownBadge,
+      });
+    }
     return (
       <Fragment>
         <Select
@@ -75,12 +83,14 @@ class AssignBadgeForm extends Component {
           value={selectedStudent}
           options={studentOptions}
           onChange={this.handleChangeStudent}
+          placeholder={t('Student')}
         />
         <Select
           className="BadgeSelect"
-          value={selectedBadge}
+          value={shownBadge}
           onChange={this.handleChangeBadge}
           options={badgeOptions}
+          placeholder={t('Prize')}
         />
         <Button
           className="AssignBadge"
@@ -98,12 +108,14 @@ const mapStateToProps = (state, ownProps) => {
   const { t } = ownProps;
   return {
     studentOptions: state.users.content.map(({ id, name }) => ({ value: id, label: name })),
-    badgeOptions: state.badges.content.map(({ _id, label, color }) => ({
+    badgeOptions: state.badges.groups[state.settings.badgeGroup].badges.map(({
+      _id, label, color, icon,
+    }) => ({
       value: _id,
       label: (
         <div>
           { `${t(label)} ` }
-          <FontAwesomeIcon color={color} icon="medal" />
+          <FontAwesomeIcon color={color} icon={icon} />
         </div>
       ),
     })),

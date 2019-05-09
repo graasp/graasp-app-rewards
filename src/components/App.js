@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faMedal } from '@fortawesome/free-solid-svg-icons';
 import TeacherView from './modes/teacher/TeacherView';
 import StudentView from './modes/student/StudentView';
 import './App.css';
@@ -13,9 +11,6 @@ import {
 } from '../actions';
 import { DEFAULT_LANG, DEFAULT_MODE } from '../config/settings';
 import { getAppInstance } from '../actions/appInstance';
-
-// set up icons
-library.add(faMedal);
 
 export class App extends Component {
   static propTypes = {

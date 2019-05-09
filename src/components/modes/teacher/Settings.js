@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Switch from '@material-ui/core/Switch';
 import Select from 'react-select';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withNamespaces } from 'react-i18next';
@@ -13,6 +14,7 @@ import {
   patchAppInstance,
   setHeaderVisibility,
 } from '../../../actions';
+import './Settings.css';
 import { options as langOptions } from '../../../constants/langs';
 
 function getModalStyle() {
@@ -80,6 +82,14 @@ class Settings extends Component {
     this.saveSettings(settingsToChange);
   };
 
+  handleChangeGroup = (selectedGroup) => {
+    const { value } = selectedGroup;
+    const settingsToChange = {
+      badgeGroup: value,
+    };
+    this.saveSettings(settingsToChange);
+  };
+
   render() {
     const {
       t,
@@ -87,14 +97,17 @@ class Settings extends Component {
       classes,
       open,
       settings,
+      badgeOptions,
     } = this.props;
 
     const {
       headerVisible,
+      badgeGroup,
     } = settings;
 
     const { language } = i18n;
     const selectedLanguage = langOptions.find(langOption => langOption.value === language);
+    const selectedGroup = badgeOptions.find(badgeOption => badgeOption.value === badgeGroup);
 
     return (
       <div>
@@ -105,7 +118,7 @@ class Settings extends Component {
           onClose={this.handleClose}
         >
           <div style={getModalStyle()} className={classes.paper}>
-            <Typography variant="h6" id="modal-title">
+            <Typography variant="h5" id="modal-title">
               { t('Settings') }
             </Typography>
             <FormControlLabel
@@ -119,12 +132,27 @@ class Settings extends Component {
               )}
               label={t('Header visible')}
             />
+            <Typography variant="h6">
+              { t('Language') }
+            </Typography>
             <Select
               // default selected value is the first language option
+              className="select"
               defaultValue={langOptions[0]}
               options={langOptions}
               value={selectedLanguage}
               onChange={this.handleChangeLanguage}
+            />
+            <Typography variant="h6">
+              { t('Reward Type') }
+            </Typography>
+            <Select
+              // default selected value is the first language option
+              className="select"
+              defaultValue={badgeOptions[0]}
+              options={badgeOptions}
+              value={selectedGroup}
+              onChange={this.handleChangeGroup}
             />
           </div>
         </Modal>
@@ -136,9 +164,13 @@ class Settings extends Component {
 Settings.propTypes = {
   classes: PropTypes.shape({}).isRequired,
   open: PropTypes.bool.isRequired,
+  badgeOptions: PropTypes.arrayOf(PropTypes.shape(
+    { label: PropTypes.string.isRequired, value: PropTypes.number.isRequired },
+  )).isRequired,
   settings: PropTypes.shape({
     headerVisible: PropTypes.bool.isRequired,
     lang: PropTypes.string.isRequired,
+    badgeGroup: PropTypes.number.isRequired,
   }).isRequired,
   t: PropTypes.func.isRequired,
   dispatchCloseSettings: PropTypes.func.isRequired,
@@ -148,13 +180,27 @@ Settings.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = ({ settings }) => ({
-  open: settings.open,
-  settings: {
-    lang: settings.lang,
-    headerVisible: settings.headerVisible,
-  },
-});
+const mapStateToProps = ({ settings, badges }, ownProps) => {
+  const { t } = ownProps;
+  return {
+    open: settings.open,
+    badgeOptions: badges.groups.map(({ name, badges: _badges }, index) => (
+      {
+        label: (
+          <div>
+            <FontAwesomeIcon color="stormgray" icon={_badges[0].icon} />
+            { ` ${t(name)}` }
+          </div>
+        ),
+        value: index,
+      })),
+    settings: {
+      lang: settings.lang,
+      headerVisible: settings.headerVisible,
+      badgeGroup: settings.badgegroup,
+    },
+  };
+};
 
 const mapDispatchToProps = {
   dispatchCloseSettings: closeSettings,

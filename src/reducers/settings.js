@@ -4,6 +4,7 @@ import {
   OPEN_SETTINGS,
   CLOSE_SETTINGS,
   SET_HEADER_VISIBILITY,
+  SET_BADGE_GROUP,
 } from '../types';
 
 const INITIAL_STATE = {
@@ -15,6 +16,7 @@ const INITIAL_STATE = {
   subSpaceId: null,
   open: false,
   headerVisible: true,
+  badgeGroup: 0,
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
@@ -43,6 +45,11 @@ export default (state = INITIAL_STATE, { type, payload }) => {
       return {
         ...state,
         headerVisible: payload,
+      };
+    case SET_BADGE_GROUP:
+      return {
+        ...state,
+        badgeGroup: payload,
       };
     default:
       return state;

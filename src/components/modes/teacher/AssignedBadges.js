@@ -40,14 +40,15 @@ const renderAppInstanceResources = (props) => {
 
     // extract necessary properties
     const { name } = studentObject;
-    const { color } = badgeObject;
+    const { label, color, icon } = badgeObject;
 
     // return a row for this entry
     return (
       <tr key={_id}>
         <td>{ name }</td>
         <td>
-          <FontAwesomeIcon color={color} icon="medal" />
+          { `${t(label)} ` }
+          <FontAwesomeIcon color={color} icon={icon} />
         </td>
         <td>
           <ButtonGroup>
