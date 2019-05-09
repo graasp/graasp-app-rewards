@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withNamespaces } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Typography from '@material-ui/core/Typography';
 import { Table } from 'reactstrap';
 import './MyBadges.css';
 
@@ -31,7 +32,7 @@ const renderBadges = (props) => {
     const badgeObject = badges.find(badge => badge._id === badgeId) || {};
 
     // extract necessary properties
-    const { color } = badgeObject;
+    const { label, color, icon } = badgeObject;
 
     // return a row for this entry
     return (
@@ -39,9 +40,12 @@ const renderBadges = (props) => {
         <td>
           <FontAwesomeIcon
             color={color}
-            icon="medal"
+            icon={icon}
             size="10x"
           />
+          <Typography variant="h5">
+            { t(label) }
+          </Typography>
         </td>
       </tr>
     );
