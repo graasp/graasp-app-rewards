@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  Container,
-} from 'reactstrap';
+import { Container } from 'reactstrap';
 import Fab from '@material-ui/core/Fab';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { withStyles } from '@material-ui/core/styles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import {
   getAppInstanceResources,
@@ -92,7 +90,7 @@ class TeacherView extends Component {
 
     return (
       <Container fluid className="App App-body TeacherView">
-        <h3>{ t('Teacher Dashboard') }</h3>
+        <h3>{t('Teacher Dashboard')}</h3>
         <AssignBadgeForm />
         <AssignedBadges />
         <Settings />
@@ -110,10 +108,10 @@ class TeacherView extends Component {
 }
 
 // get the app instance resources that are saved in the redux store
-const mapStateToProps = state => ({
-  appInstanceId: state.settings.appInstanceId,
-  spaceId: state.settings.spaceId,
-  appInstanceResources: state.appInstanceResources.content,
+const mapStateToProps = ({ context, appInstanceResources }) => ({
+  appInstanceId: context.appInstanceId,
+  spaceId: context.spaceId,
+  appInstanceResources: appInstanceResources.content,
 });
 
 // allow this component to dispatch a post
@@ -124,6 +122,11 @@ const mapDispatchToProps = {
   dispatchOpenSettings: openSettings,
 };
 
-const ConnectedComponent = connect(mapStateToProps, mapDispatchToProps)(TeacherView);
+const ConnectedComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TeacherView);
 
-export default withStyles(TeacherView.styles)(withNamespaces()(ConnectedComponent));
+export default withStyles(TeacherView.styles)(
+  withTranslation()(ConnectedComponent)
+);

@@ -12,6 +12,7 @@ describe('<App />', () => {
     dispatchGetApiEndpoint: jest.fn(),
     dispatchGetSettings: jest.fn(),
     dispatchGetAppInstance: jest.fn(),
+    dispatchGetContext: jest.fn(),
   };
   const component = shallow(<App {...props} />);
   it('renders correctly', () => {

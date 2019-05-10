@@ -1,33 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Typography from '@material-ui/core/Typography';
 import { Table } from 'reactstrap';
 import './MyBadges.css';
 
-const renderBadges = (props) => {
-  const {
-    t,
-    badges,
-    appInstanceResources,
-  } = props;
+const renderBadges = props => {
+  const { t, badges, appInstanceResources } = props;
   // if there are no resources, show an empty table
   if (!appInstanceResources.length) {
     return (
       <tr>
-        <td colSpan={5}>
-          { t('No badges have been assigned to you yet') }
-        </td>
+        <td colSpan={5}>{t('No badges have been assigned to you yet')}</td>
       </tr>
     );
   }
   // map each app instance resource to a row in the table
   return appInstanceResources.map(({ _id, data }) => {
-    const {
-      badgeId,
-    } = data;
+    const { badgeId } = data;
     // find corresponding badge objects from state
     const badgeObject = badges.find(badge => badge._id === badgeId) || {};
 
@@ -38,36 +30,25 @@ const renderBadges = (props) => {
     return (
       <tr key={_id}>
         <td>
-          <FontAwesomeIcon
-            color={color}
-            icon={icon}
-            size="10x"
-          />
-          <Typography variant="h5">
-            { t(label) }
-          </Typography>
+          <FontAwesomeIcon color={color} icon={icon} size="10x" />
+          <Typography variant="h5">{t(label)}</Typography>
         </td>
       </tr>
     );
   });
 };
 
-const MyBadges = (props) => {
+const MyBadges = props => {
   const { t } = props;
   return (
     <div className="AssignedBadges">
-
       <Table>
         <thead>
           <tr>
-            <th>
-              { t('Trophy Room') }
-            </th>
+            <th>{t('Trophy Room')}</th>
           </tr>
         </thead>
-        <tbody>
-          { renderBadges(props) }
-        </tbody>
+        <tbody>{renderBadges(props)}</tbody>
       </Table>
     </div>
   );
@@ -77,14 +58,16 @@ MyBadges.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  appInstanceResources: state.appInstanceResources.content,
-  badges: state.badges.content,
+const mapStateToProps = ({ badges, appInstanceResources }) => ({
+  appInstanceResources: appInstanceResources.content,
+  badges: badges.content,
 });
 
 const mapDispatchToProps = {};
 
+const ConnectedComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MyBadges);
 
-const ConnectedComponent = connect(mapStateToProps, mapDispatchToProps)(MyBadges);
-
-export default withNamespaces()(ConnectedComponent);
+export default withTranslation()(ConnectedComponent);

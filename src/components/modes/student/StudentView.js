@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { Container } from 'reactstrap';
 import MyBadges from './MyBadges';
 import { getAppInstanceResources } from '../../../actions';
@@ -40,10 +40,7 @@ class StudentView extends Component {
       dispatchGetAppInstanceResources,
     } = this.props;
     // handle receiving the app instance id
-    if (
-      appInstanceId !== prevAppInstanceId
-      && userId !== prevUserId
-    ) {
+    if (appInstanceId !== prevAppInstanceId && userId !== prevUserId) {
       await dispatchGetAppInstanceResources({ userId });
     }
   }
@@ -58,14 +55,17 @@ class StudentView extends Component {
 }
 
 const mapStateToProps = state => ({
-  userId: state.settings.userId,
-  appInstanceId: state.settings.appInstanceId,
+  userId: state.context.userId,
+  appInstanceId: state.context.appInstanceId,
 });
 
 const mapDispatchToProps = {
   dispatchGetAppInstanceResources: getAppInstanceResources,
 };
 
-const ConnectedComponent = connect(mapStateToProps, mapDispatchToProps)(StudentView);
+const ConnectedComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StudentView);
 
-export default withNamespaces()(ConnectedComponent);
+export default withTranslation()(ConnectedComponent);

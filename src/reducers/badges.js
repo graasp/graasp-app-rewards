@@ -1,6 +1,9 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-  faMedal, faTrophy, faAward, faCoins,
+  faMedal,
+  faTrophy,
+  faAward,
+  faCoins,
 } from '@fortawesome/free-solid-svg-icons';
 
 // set up icons
@@ -98,13 +101,13 @@ const GROUPS = [
         icon: 'coins',
       },
       {
-        _id: '100Points',
+        _id: '50Points',
         label: '50 - 70 Points',
         color: 'silver',
         icon: 'coins',
       },
       {
-        _id: '1000Points',
+        _id: '100Points',
         label: '80 - 100 Points',
         color: 'gold',
         icon: 'coins',

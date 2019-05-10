@@ -5,7 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import { withStyles } from '@material-ui/core/styles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import './Header.css';
 
 class Header extends Component {
@@ -30,7 +30,7 @@ class Header extends Component {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              { t('Badges') }
+              {t('Badges')}
             </Typography>
           </Toolbar>
         </AppBar>
@@ -47,4 +47,4 @@ const mapStateToProps = ({ settings }) => ({
 
 const ConnectedHeader = connect(mapStateToProps)(Header);
 
-export default withStyles(Header.styles)(withNamespaces()(ConnectedHeader));
+export default withStyles(Header.styles)(withTranslation()(ConnectedHeader));
