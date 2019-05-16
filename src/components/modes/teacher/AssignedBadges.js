@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, ButtonGroup, Table } from 'reactstrap';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { deleteAppInstanceResource } from '../../../actions';
 import './AssignedBadges.css';
+import { BADGE } from '../../../config/appInstanceResourceTypes';
 
-const renderAppInstanceResources = (props) => {
+const renderAppInstanceResources = props => {
   const {
     t,
     badges,
@@ -17,29 +18,33 @@ const renderAppInstanceResources = (props) => {
   } = props;
   // if there are no resources, show an empty table
   if (!appInstanceResources.length) {
-    return <tr><td colSpan={5}>No Badges Assigned</td></tr>;
+    return (
+      <tr>
+        <td colSpan={5}>No Badges Assigned</td>
+      </tr>
+    );
   }
   // map each app instance resource to a row in the table
-  return appInstanceResources.map(({ _id, user, data }) => {
-    const {
-      badgeId,
-    } = data;
+  return appInstanceResources.map(({ _id, user, data, type }) => {
+    if (type !== BADGE) {
+      return <Fragment key={_id} />;
+    }
+    const { badgeId } = data;
     // find corresponding student and badge objects from state
-    const studentObject = students.find(student => student._id === user) || {};
+    const studentObject = students.find(student => student.id === user) || {};
     const badgeObject = badges.find(badge => badge._id === badgeId) || {};
 
     // extract necessary properties
     const { name } = studentObject;
-    const { color } = badgeObject;
+    const { label, color, icon } = badgeObject;
 
     // return a row for this entry
     return (
       <tr key={_id}>
-        <th scope="row">{ _id }</th>
-        <td>{ user }</td>
-        <td>{ name }</td>
+        <td>{name}</td>
         <td>
-          <FontAwesomeIcon color={color} icon="medal" />
+          {`${t(label)} `}
+          <FontAwesomeIcon color={color} icon={icon} />
         </td>
         <td>
           <ButtonGroup>
@@ -48,7 +53,7 @@ const renderAppInstanceResources = (props) => {
               color="danger"
               onClick={() => dispatchDeleteAppInstanceResource(_id)}
             >
-              { t('Delete') }
+              {t('Delete')}
             </Button>
           </ButtonGroup>
         </td>
@@ -57,36 +62,20 @@ const renderAppInstanceResources = (props) => {
   });
 };
 
-const AssignedBadges = (props) => {
+const AssignedBadges = props => {
   const { t } = props;
   return (
     <div className="AssignedBadges">
-      <h5>
-        { t('Assigned Badges') }
-      </h5>
+      <h5>{t('List of Assigned Badges')}</h5>
       <Table>
         <thead>
           <tr>
-            <th>
-              { t('ID') }
-            </th>
-            <th>
-              { t('Student ID') }
-            </th>
-            <th>
-              { t('Name') }
-            </th>
-            <th>
-              { t('Badge') }
-            </th>
-            <th>
-              { t('Actions') }
-            </th>
+            <th>{t('Name')}</th>
+            <th>{t('Badge')}</th>
+            <th>{t('Actions')}</th>
           </tr>
         </thead>
-        <tbody>
-          { renderAppInstanceResources(props) }
-        </tbody>
+        <tbody>{renderAppInstanceResources(props)}</tbody>
       </Table>
     </div>
   );
@@ -106,7 +95,9 @@ const mapDispatchToProps = {
   dispatchDeleteAppInstanceResource: deleteAppInstanceResource,
 };
 
+const ConnectedComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AssignedBadges);
 
-const ConnectedComponent = connect(mapStateToProps, mapDispatchToProps)(AssignedBadges);
-
-export default withNamespaces()(ConnectedComponent);
+export default withTranslation()(ConnectedComponent);

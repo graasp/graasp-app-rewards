@@ -1,10 +1,9 @@
-import { flag, isErrorResponse } from './common';
+import { flag, getApiContext, isErrorResponse } from './common';
 import {
   FLAG_GETTING_USERS,
   GET_USERS_FAILED,
   GET_USERS_SUCCEEDED,
 } from '../types';
-import { getApiEndpoint } from './settings';
 import {
   DEFAULT_GET_REQUEST,
   SPACES_ENDPOINT,
@@ -16,19 +15,9 @@ const flagGettingUsers = flag(FLAG_GETTING_USERS);
 const getUsers = async () => async (dispatch, getState) => {
   dispatch(flagGettingUsers(true));
   try {
-    const { settings: { spaceId } } = getState();
-    let { settings: { endpoint } } = getState();
+    const { spaceId, apiHost } = getApiContext(getState);
 
-    if (!endpoint) {
-      await dispatch(getApiEndpoint());
-      ({ settings: { endpoint } } = getState());
-    }
-
-    if (!spaceId) {
-      return alert('no space id specified');
-    }
-
-    const url = `${endpoint + SPACES_ENDPOINT}/${spaceId}/${USERS_ENDPOINT}`;
+    const url = `//${apiHost + SPACES_ENDPOINT}/${spaceId}/${USERS_ENDPOINT}`;
 
     const response = await fetch(url, DEFAULT_GET_REQUEST);
 

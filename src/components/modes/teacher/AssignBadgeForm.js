@@ -4,21 +4,27 @@ import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
 import Select from 'react-select';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { postAppInstanceResource } from '../../../actions';
+import { BADGE } from '../../../config/appInstanceResourceTypes';
+import './AssignBadgeForm.css';
 
 class AssignBadgeForm extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
     dispatchPostAppInstanceResource: PropTypes.func.isRequired,
-    studentOptions: PropTypes.arrayOf(PropTypes.shape({
-      label: PropTypes.string,
-      value: PropTypes.string,
-    })).isRequired,
-    badgeOptions: PropTypes.arrayOf(PropTypes.shape({
-      label: PropTypes.element,
-      value: PropTypes.string,
-    })).isRequired,
+    studentOptions: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string,
+        value: PropTypes.string,
+      })
+    ).isRequired,
+    badgeOptions: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.element,
+        value: PropTypes.string,
+      })
+    ).isRequired,
   };
 
   state = {
@@ -26,13 +32,13 @@ class AssignBadgeForm extends Component {
     selectedBadge: null,
   };
 
-  handleChangeStudent = (value) => {
+  handleChangeStudent = value => {
     this.setState({
       selectedStudent: value,
     });
   };
 
-  handleChangeBadge = (value) => {
+  handleChangeBadge = value => {
     this.setState({
       selectedBadge: value,
     });
@@ -40,15 +46,13 @@ class AssignBadgeForm extends Component {
 
   assignBadge = () => {
     const { dispatchPostAppInstanceResource } = this.props;
-    const {
-      selectedStudent,
-      selectedBadge,
-    } = this.state;
+    const { selectedStudent, selectedBadge } = this.state;
     if (!selectedStudent || !selectedBadge) {
-      return alert('you must select a student and a badge');
+      return alert('You must select a student and a badge');
     }
     return dispatchPostAppInstanceResource({
-      user: selectedStudent.value,
+      userId: selectedStudent.value,
+      type: BADGE,
       data: {
         badgeId: selectedBadge.value,
       },
@@ -56,15 +60,17 @@ class AssignBadgeForm extends Component {
   };
 
   render() {
-    const {
-      selectedStudent,
-      selectedBadge,
-    } = this.state;
-    const {
-      t,
-      studentOptions,
-      badgeOptions,
-    } = this.props;
+    const { selectedStudent, selectedBadge } = this.state;
+    const { t, studentOptions, badgeOptions } = this.props;
+    const shownBadge =
+      badgeOptions.find(badge =>
+        selectedBadge ? badge.value === selectedBadge.value : null
+      ) || null;
+    // if (shownBadge !== selectedBadge) {
+    //   this.setState({
+    //     selectedBadge: shownBadge,
+    //   });
+    // }
     return (
       <Fragment>
         <Select
@@ -72,37 +78,47 @@ class AssignBadgeForm extends Component {
           value={selectedStudent}
           options={studentOptions}
           onChange={this.handleChangeStudent}
+          placeholder={t('Student')}
         />
         <Select
           className="BadgeSelect"
-          value={selectedBadge}
+          value={shownBadge}
           onChange={this.handleChangeBadge}
           options={badgeOptions}
+          placeholder={t('Prize')}
         />
         <Button
+          className="AssignBadge"
           color="primary"
           onClick={this.assignBadge}
         >
-          { t('Assign Badge') }
+          {t('Assign Badge')}
         </Button>
       </Fragment>
     );
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = ({ badges, users, appInstance }, ownProps) => {
   const { t } = ownProps;
+  // by default group is 0
+  const group = appInstance.settings.badgeGroup;
   return {
-    studentOptions: state.users.content.map(({ _id, name }) => ({ value: _id, label: name })),
-    badgeOptions: state.badges.content.map(({ _id, label, color }) => ({
-      value: _id,
-      label: (
-        <div>
-          { `${t(label)} ` }
-          <FontAwesomeIcon color={color} icon="medal" />
-        </div>
-      ),
+    studentOptions: users.content.map(({ id, name }) => ({
+      value: id,
+      label: name,
     })),
+    badgeOptions: badges.groups[group].badges.map(
+      ({ _id, label, color, icon }) => ({
+        value: _id,
+        label: (
+          <div>
+            {`${t(label)} `}
+            <FontAwesomeIcon color={color} icon={icon} />
+          </div>
+        ),
+      })
+    ),
   };
 };
 
@@ -110,6 +126,9 @@ const mapDispatchToProps = {
   dispatchPostAppInstanceResource: postAppInstanceResource,
 };
 
-const ConnectedComponent = connect(mapStateToProps, mapDispatchToProps)(AssignBadgeForm);
+const ConnectedComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AssignBadgeForm);
 
-export default withNamespaces()(ConnectedComponent);
+export default withTranslation()(ConnectedComponent);

@@ -1,4 +1,5 @@
-import { GET_USERS_SUCCEEDED } from '../types';
+import { GET_USERS_FAILED, GET_USERS_SUCCEEDED } from '../types';
+import { showErrorToast } from '../utils/toasts';
 
 const INITIAL_STATE = {
   content: [],
@@ -12,6 +13,12 @@ export default (state = INITIAL_STATE, { payload, type }) => {
         ...state,
         content: payload,
       };
+
+    case GET_USERS_FAILED:
+      // show error to user
+      showErrorToast(payload);
+      return state;
+
     default:
       return state;
   }

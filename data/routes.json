@@ -1,4 +1,5 @@
 {
+  "/app-instances/:id": "/appInstances/:id",
   "/app-instance-resources\\?appInstanceId=:id": "/appInstanceResources?appInstance=:id",
   "/app-instance-resources\\?userId=:id": "/appInstanceResources?user=:id",
   "/app-instance-resources\\?appInstanceId=:appInstanceId\\&userId=:userId": "/appInstanceResources?appInstance=:appInstanceId&user=:userId",

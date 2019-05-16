@@ -1,28 +1,20 @@
-import {
-  GET_API_ENDPOINT_SUCCEEDED,
-  GET_SETTINGS_SUCCEEDED,
-} from '../types';
+import { OPEN_SETTINGS, CLOSE_SETTINGS } from '../types';
 
 const INITIAL_STATE = {
-  endpoint: null,
-  // the properties below come from the context via the query string
-  lang: 'en',
-  appInstanceId: null,
-  spaceId: null,
-  subSpaceId: null,
+  open: false,
 };
 
-export default (state = INITIAL_STATE, { type, payload }) => {
+export default (state = INITIAL_STATE, { type }) => {
   switch (type) {
-    case GET_API_ENDPOINT_SUCCEEDED:
+    case OPEN_SETTINGS:
       return {
         ...state,
-        endpoint: payload,
+        open: true,
       };
-    case GET_SETTINGS_SUCCEEDED:
+    case CLOSE_SETTINGS:
       return {
         ...state,
-        ...payload,
+        open: false,
       };
     default:
       return state;
