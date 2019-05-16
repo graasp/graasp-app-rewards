@@ -78,7 +78,6 @@ class Settings extends Component {
 
   handleClose = () => {
     const { dispatchCloseSettings } = this.props;
-    this.saveSettings();
     dispatchCloseSettings();
   };
 
@@ -86,8 +85,12 @@ class Settings extends Component {
     const { i18n } = this.props;
     const { value } = selectedLanguage;
     i18n.changeLanguage(value);
+    // language needs to go under context object
+    // as it overrides the context the app is running in
     const settingsToChange = {
-      lang: value,
+      context: {
+        lang: value,
+      },
     };
     this.saveSettings(settingsToChange);
   };
