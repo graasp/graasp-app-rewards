@@ -1,7 +1,14 @@
-# Graasp App Badges
+<p align="center">
+  <a href="https://graasp.eu/">
+    <img alt="Graasp" src="https://avatars3.githubusercontent.com/u/43075056" width="300">
+  </a>
+</p>
 
-This is an application that allows educators to assign badges to learners
-within the Graasp ecosystem.
+<h1 align="center">Graasp App: Rewards</h1>
+
+<p align="center">
+  Allows educators to assign rewards to learners within the Graasp ecosystem.
+</p>
 
 ## Environment Variables
 
