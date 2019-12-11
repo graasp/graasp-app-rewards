@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://github.com/graasp/graasp-app-rewards/compare/v0.2.0...v0.2.1) (2019-12-11)
+
+### Bug Fixes
+
+- update app name to rewards ([b562d8d](https://github.com/graasp/graasp-app-rewards/commit/b562d8d))
+
+### Build System
+
+- **deps:** bump lodash from 4.17.11 to 4.17.13 ([17c293e](https://github.com/graasp/graasp-app-rewards/commit/17c293e))
+
 ## [0.2.0](https://github.com/graasp/graasp-app-badges/compare/v0.1.0...v0.2.0) (2019-05-16)
 
 ### Bug Fixes
