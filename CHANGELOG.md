@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/graasp/graasp-app-rewards/compare/v0.2.1...v0.3.0) (2019-12-11)
+
+### Bug Fixes
+
+- deploy build folder and not dist ([a2d0e4a](https://github.com/graasp/graasp-app-rewards/commit/a2d0e4a))
+- update app name in readme ([ea662bc](https://github.com/graasp/graasp-app-rewards/commit/ea662bc))
+
+### Features
+
+- display trophies in grid ([fbbaa74](https://github.com/graasp/graasp-app-rewards/commit/fbbaa74))
+- use mui theme ([ffc3e2e](https://github.com/graasp/graasp-app-rewards/commit/ffc3e2e))
+
 ### [0.2.1](https://github.com/graasp/graasp-app-rewards/compare/v0.2.0...v0.2.1) (2019-12-11)
 
 ### Bug Fixes
